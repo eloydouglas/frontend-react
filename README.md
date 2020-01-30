@@ -1,6 +1,6 @@
 # Instruções para rodar a aplicação:
 
-Como essa não é uma aplicação real, para roda-la é necessário criar um arquivo com o nome de `.env` na raíz do projeto e adicionar dentro do arquivo:
+Como essa não é uma aplicação real, para fazer as coisas funcionarem é necessário criar um arquivo com o nome de `.env` na raíz do projeto e adicionar dentro do arquivo:
 ```
   REACT_APP_API_TOKEN={seu token do Go Rest}
 ```
