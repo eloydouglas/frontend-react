@@ -1,3 +1,16 @@
+# Instruções para rodar a aplicação:
+
+Como essa não é uma aplicação real, para roda-la é necessário criar um arquivo com o nome de `.env` na raíz do projeto e adicionar dentro do arquivo:
+```
+  REACT_APP_API_TOKEN={seu token do Go Rest}
+```
+Para gerar um token, basta acessar https://gorest.co.in/ e logar, o token fica localizado em https://gorest.co.in/user/settings/api-access.html
+
+Após feita a configuração, basta rodar  `npm install` e `npm start` .
+
+
+
+
 # Frontend <img src="https://www.moovin.com.br/assets/images/svg/logo2.svg" width="50">
 
 ### Desafio
