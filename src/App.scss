@@ -1,5 +1,33 @@
-.header{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.appHeader{
+    background-color: black;
+    text-align: center;
+    padding-top: 15px;
+
+    img{
+        width: 90px;
+        height: auto;
+    }
+}
+
+@keyframes spinner {
+    to { transform: rotate(360deg); }
+  }
+
+
+.spinnerContainer{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+}
+
+.appSpinner {
+    width: 100px;
+    height: auto;
+    animation: spinner 1s linear infinite;
+    color: #10e05e;
 }

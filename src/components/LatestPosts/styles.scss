@@ -1,8 +1,39 @@
 .container{
-    
+    margin: 40px;
+
+    .title{
+        font-weight: bold;
+    }
 }
 
-.content{
+.contentContainer{
+    padding: 10px 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: calc(100% - 40px);
 
+    span{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 10px;
+        color: #2B2B2B;
+        font-weight: lighter;
+        font-size: 14px;
+        max-width: 23vw;
+
+        &.header{
+            font-weight: bold;
+            text-align: left;
+            color: #545454;
+            font-size: 15px;
+        }
+    }
 }
 
+.footer{
+    span{
+        color: #494949;
+        font-size: 13px;
+    }
+}

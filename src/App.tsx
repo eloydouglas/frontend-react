@@ -1,15 +1,14 @@
 import React from 'react'
 import './App.scss'
+import logoMoovin from './assets/logo-moovin.svg'
 
 import LatestPosts from './components/LatestPosts'
 
 const App: React.FC = () => {
-	const logoMoovin =
-		'https://cdn.moovin.com.br/project/manager-panel/img/logo-moovin.svg'
 
 	return (
 		<div className='App'>
-			<div className='header'>
+			<div className='appHeader'>
 				<img alt='Logo da Moovin' src={logoMoovin} />
 			</div>
 			<LatestPosts/>

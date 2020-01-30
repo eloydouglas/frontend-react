@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 
-// const token = 'MnVtX4FImyvrmeckr-yiLuBwzxrDehUPVVe';
-const token = 'MnVtX4FImyvrmeckr-yiLuBwzxrDehUPVVe2';
+import { FaSpinner } from 'react-icons/fa' 
+import PostList from './PostList'
 
 const LatestPosts: React.FC = () => {
     const [posts, setposts] = useState(
@@ -20,12 +20,18 @@ const LatestPosts: React.FC = () => {
         }
     )
 
+    useEffect(() => {
+        if(!posts.error && !posts.loading && posts.data.length === 0){
+            fetchPosts(1);
+        }
+        
+    }, [posts])
 
-    const fetchPosts = async () => {
+    const fetchPosts = async (page: Number) => {
 
         setposts({...posts, loading: true})
         
-        const response = await axios.get(`https://gorest.co.in/public-api/posts?_format=json&access-token=${token}&page=${2}`)
+        const response = await axios.get(`https://gorest.co.in/public-api/posts?_format=json&access-token=${process.env.REACT_APP_API_TOKEN}&page=${page}`)
 
         try{
             if(response.status !== 200){
@@ -51,17 +57,25 @@ const LatestPosts: React.FC = () => {
         console.log(response)
     }
 
-    useEffect(() => {
-        if(!posts.error && !posts.loading && posts.data.length === 0){
-            // fetchPosts();
-        }
-        
-    }, [posts])
-
     return (
-    <div className='container'>
-        
-    </div>
+        <div className='container'>
+
+            {posts.loading ? 
+                <div className='spinnerContainer'>
+                    <FaSpinner className='appSpinner'/>
+                </div>
+            :
+                <>
+                    <span className='title'>Últimas Postagens</span>
+                    <div className='contentContainer'>
+                        <PostList posts={posts.data} pages={pages} fetchPosts={fetchPosts}/>
+                    </div>
+                    <div className='footer'>
+                        <span >Exibindo {posts.data.length} postagens</span>
+                    </div>
+                </>
+            }   
+        </div>
 )}
 
 export default LatestPosts
