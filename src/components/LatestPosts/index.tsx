@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import { FaSpinner } from 'react-icons/fa' 
 import PostList from './PostList'
+import Pagination from './Pagination'
 
 const LatestPosts: React.FC = () => {
     const [posts, setposts] = useState(
@@ -25,22 +26,21 @@ const LatestPosts: React.FC = () => {
             fetchPosts(1);
         }
         
-    }, [posts])
+    }, [posts, fetchPosts])
 
-    const fetchPosts = async (page: Number) => {
+    async function fetchPosts(page: Number) {
 
         setposts({...posts, loading: true})
         
-        const response = await axios.get(`https://gorest.co.in/public-api/posts?_format=json&access-token=${process.env.REACT_APP_API_TOKEN}&page=${page}`)
-
         try{
+            const response = await axios.get(`https://gorest.co.in/public-api/posts?_format=json&access-token=${process.env.REACT_APP_API_TOKEN}&page=${page}`)
             if(response.status !== 200){
-                throw new Error("Could not fetch posts from https://gorest.co.in/")
+                throw "Não consegui buscar os posts em https://gorest.co.in/ ."
             }else{
-                if(response.data._meta.status === 401){
-                    throw new Error("Invalid token")
+                if(response.data._meta.code === 401){
+                    throw "Credenciais inválidas, verifique sua token."
                 }else if(!response.data._meta.success){
-                    throw new Error("An error occurred when trying to fetch posts")
+                    throw "Ocorreu um erro ao tentar buscar os posts."
                 }else{
                     setposts({...posts, data: response.data.result, error: null, loading: false})
                     setpages({...pages, currentPage: response.data._meta.currentPage, limit: response.data._meta.pageCount })
@@ -48,13 +48,8 @@ const LatestPosts: React.FC = () => {
             }
         }catch(err){
 
-            console.log(err)
-
-
             setposts({...posts, error: err, loading: false})
         }
-
-        console.log(response)
     }
 
     return (
@@ -65,13 +60,22 @@ const LatestPosts: React.FC = () => {
                     <FaSpinner className='appSpinner'/>
                 </div>
             :
+                posts.error ? 
+                    <div>
+                        {posts.error}
+                    </div> 
+                :
+                
                 <>
                     <span className='title'>Últimas Postagens</span>
                     <div className='contentContainer'>
-                        <PostList posts={posts.data} pages={pages} fetchPosts={fetchPosts}/>
+                        <PostList posts={posts.data}/>
                     </div>
                     <div className='footer'>
                         <span >Exibindo {posts.data.length} postagens</span>
+                        <div className='paginationContainer'>
+                            <Pagination fetchPosts={fetchPosts} pages={pages}/>
+                        </div>
                     </div>
                 </>
             }   

@@ -9,7 +9,7 @@
 .contentContainer{
     padding: 10px 20px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: (2fr 2fr 1fr);
     max-width: calc(100% - 40px);
 
     span{
@@ -20,7 +20,7 @@
         color: #2B2B2B;
         font-weight: lighter;
         font-size: 14px;
-        max-width: 23vw;
+        max-width: 25vw;
 
         &.header{
             font-weight: bold;
@@ -32,8 +32,38 @@
 }
 
 .footer{
+
     span{
         color: #494949;
         font-size: 13px;
+    }
+
+    .paginationContainer{
+        position: absolute;
+        display: inline-flex;
+        justify-content: flex-end;
+        right: 0;
+        margin-right: 40px;
+
+        .navIcon{
+            display: inline;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .numberContainer{
+        padding: 5px;
+
+        &:hover{
+            cursor: pointer;
+        }
+
+        &.selected{
+            border: 1px solid grey;
+            border-radius: 5px;
+        }
     }
 }
